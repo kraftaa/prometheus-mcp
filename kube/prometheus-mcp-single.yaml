@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus-mcp
+  namespace: mcp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus-mcp
+  template:
+    metadata:
+      labels:
+        app: prometheus-mcp
+    spec:
+      containers:
+        - name: prometheus-mcp
+          image: ghcr.io/<your-org>/prometheus-mcp-server:v0.1.0
+          ports:
+            - containerPort: 3020
+          env:
+            - name: PROMETHEUS_URL
+              value: http://<prometheus-service>.<prometheus-namespace>.svc.cluster.local:9090
+            - name: PROMETHEUS_HTTP_TIMEOUT
+              value: "30"
+            - name: MCP_HOST
+              value: "0.0.0.0"
+            - name: MCP_PORT
+              value: "3020"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-mcp
+  namespace: mcp
+spec:
+  type: ClusterIP
+  selector:
+    app: prometheus-mcp
+  ports:
+    - name: http
+      port: 3020
+      targetPort: 3020
+      protocol: TCP

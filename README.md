@@ -42,8 +42,8 @@ export PROMETHEUS_HEADERS_JSON='{"X-Scope-OrgID":"tenant-a"}'
 ## Run locally
 
 ```bash
-pip install -e .
-PROMETHEUS_URL=http://localhost:9090 prometheus-mcp
+make install
+make dev
 ```
 
 MCP Streamable HTTP endpoint: `http://localhost:3020/mcp`
@@ -51,7 +51,15 @@ MCP Streamable HTTP endpoint: `http://localhost:3020/mcp`
 Optional smoke test (uses same request paths as the tools):
 
 ```bash
-PROMETHEUS_URL=http://localhost:9090 python smoke_test.py --query 'up' --step-seconds 30
+make smoke
+make smoke QUERY='rate(http_requests_total[5m])' STEP_SECONDS=15
+```
+
+Verify MCP handshake:
+
+```bash
+make handshake
+make handshake MCP_URL=http://localhost:3020/mcp
 ```
 
 ## Docker
