@@ -7,7 +7,7 @@ Files:
 - `prometheus-mcp-single.yaml`: Single MCP instance + Service.
 
 Update placeholders before apply:
-- `image: ghcr.io/<your-org>/prometheus-mcp-server:<tag>`
+- `image: ghcr.io/kraftaa/prometheus-mcp-server:<tag>`
 - `PROMETHEUS_URL`, for example:
   - `http://<prometheus-service>.<prometheus-namespace>.svc.cluster.local:9090`
 

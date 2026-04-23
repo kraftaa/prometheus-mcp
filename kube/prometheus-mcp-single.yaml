@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: prometheus-mcp
-          image: ghcr.io/<your-org>/prometheus-mcp-server:v0.1.0
+          image: ghcr.io/kraftaa/prometheus-mcp-server:v0.1.0
           ports:
             - containerPort: 3020
           env:
