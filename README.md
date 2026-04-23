@@ -64,6 +64,18 @@ make handshake MCP_URL=http://localhost:3020/mcp
 
 ## Docker
 
+Image publishing is automated by GitHub Actions (`.github/workflows/publish-image.yml`):
+- Push a tag `v*` to publish a version image (for example `v0.1.1`)
+- `workflow_dispatch` can be used for manual publish runs
+- Every publish also includes a short SHA tag
+
+Release example:
+
+```bash
+git tag v0.1.1
+git push origin v0.1.1
+```
+
 ```bash
 docker build -t prometheus-mcp:local .
 docker run --rm -p 3020:3020 -e PROMETHEUS_URL=http://host.docker.internal:9090 prometheus-mcp:local
