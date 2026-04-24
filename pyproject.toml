@@ -10,6 +10,7 @@ dependencies = [
 
 [project.scripts]
 prometheus-mcp = "prometheus_mcp.server:main"
+prometheus-mcp-cli = "prometheus_mcp.cli:main"
 
 [build-system]
 requires = ["hatchling"]

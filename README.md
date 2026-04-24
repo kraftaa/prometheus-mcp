@@ -61,9 +61,32 @@ make dev
 ```bash
 pip install prometheus-mcp-investigator
 prometheus-mcp
+prometheus-mcp-cli --help
 ```
 
 MCP Streamable HTTP endpoint: `http://localhost:3020/mcp`
+
+## Investigation CLI (MVP)
+
+In repo:
+
+```bash
+python cli.py investigate-service api --window 15
+python cli.py investigate-deploy api --deploy-time "2026-04-24T10:00:00Z"
+python cli.py find-new-errors api --window 15
+python cli.py status api
+python cli.py score api --window 15
+```
+
+Installed command:
+
+```bash
+prometheus-mcp-cli investigate-service api --window 15
+prometheus-mcp-cli investigate-deploy api --deploy-time "2026-04-24T10:00:00Z"
+prometheus-mcp-cli find-new-errors api --window 15
+prometheus-mcp-cli status api
+prometheus-mcp-cli score api --window 15
+```
 
 Optional smoke test (uses same request paths as the tools):
 
