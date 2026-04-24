@@ -21,6 +21,10 @@ MCP server exposing a curated surface of the Prometheus HTTP API to LLM agents o
 - `list_rules(rule_type?)` → alerting/recording rules
 - `list_metric_metadata(metric?, limit?)` → metric metadata
 - `get_runtime_info()` → Prometheus runtime details
+- `investigate_service(service, window_minutes?, ...)` → compares current vs previous window and returns deterministic regression signals
+- `investigate_deploy(service, deploy_time, window_minutes?, ...)` → compares before/after deploy window
+- `find_new_errors(service, window_minutes?, ...)` → diffs new error signatures in current window
+- `investigate_and_score(service, window_minutes?, ...)` → returns `{status, confidence, reason}` based on deterministic scoring
 
 ## Configuration
 
@@ -32,6 +36,12 @@ MCP server exposing a curated surface of the Prometheus HTTP API to LLM agents o
 | `PROMETHEUS_HEADERS_JSON` | unset | Extra headers as JSON object |
 | `MCP_HOST` | `0.0.0.0` | Bind host |
 | `MCP_PORT` | `3020` | Bind port |
+| `PROMETHEUS_SERVICE_LABEL` | `service` | Service label key used by investigation tools |
+| `PROMETHEUS_REQUEST_TOTAL_METRIC` | `http_requests_total` | Counter metric for request/error calculations |
+| `PROMETHEUS_STATUS_LABEL` | `status` | HTTP status label key used for 5xx detection/fallback |
+| `PROMETHEUS_REQUEST_DURATION_BUCKET_METRIC` | `http_request_duration_seconds_bucket` | Histogram bucket metric for p95 latency |
+| `PROMETHEUS_ERROR_COUNTER_METRIC` | `app_errors_total` | Error counter used for `find_new_errors` |
+| `PROMETHEUS_ERROR_TYPE_LABEL` | `error_type` | Label key used to diff error signatures |
 
 `PROMETHEUS_HEADERS_JSON` example:
 
@@ -60,6 +70,18 @@ Verify MCP handshake:
 ```bash
 make handshake
 make handshake MCP_URL=http://localhost:3020/mcp
+```
+
+Example deterministic investigation call:
+
+```json
+{
+  "tool": "investigate_service",
+  "arguments": {
+    "service": "api",
+    "window_minutes": 15
+  }
+}
 ```
 
 ## Docker
