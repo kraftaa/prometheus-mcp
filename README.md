@@ -117,15 +117,15 @@ Example deterministic investigation call:
 ## Docker
 
 Image publishing is automated by GitHub Actions (`.github/workflows/publish-image.yml`):
-- Push a tag `v*` to publish a version image (for example `v0.1.3`)
+- Push a tag `v*` to publish a version image (for example `v0.1.4`)
 - `workflow_dispatch` can be used for manual publish runs
 - Every publish also includes a short SHA tag
 
 Release example:
 
 ```bash
-git tag v0.1.3
-git push origin v0.1.3
+git tag v0.1.4
+git push origin v0.1.4
 ```
 
 PyPI publishing is automated by GitHub Actions (`.github/workflows/publish-pypi.yml`) using Trusted Publisher (OIDC, no API token). The workflow validates that the git tag matches `pyproject.toml` version before publishing.
