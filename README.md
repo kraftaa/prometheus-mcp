@@ -56,6 +56,13 @@ make install
 make dev
 ```
 
+## Install from PyPI
+
+```bash
+pip install prometheus-mcp-investigator
+prometheus-mcp
+```
+
 MCP Streamable HTTP endpoint: `http://localhost:3020/mcp`
 
 Optional smoke test (uses same request paths as the tools):

@@ -9,7 +9,7 @@ __all__ = ["__version__"]
 
 def _detect_version() -> str:
     try:
-        return version("prometheus-mcp")
+        return version("prometheus-mcp-investigator")
     except PackageNotFoundError:
         try:
             pyproject = Path(__file__).resolve().parents[1] / "pyproject.toml"
